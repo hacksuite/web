@@ -3,5 +3,7 @@ echo "Cmd service";
 echo "</br>";
 echo "Allowed commands: uptime";
 echo "</br>";
-echo shell_exec($_POST['arg']);
+# AUDIT_VULN_1: command injection due to unescaped user argument
+# AUDIT_VULN_2: unfiltered user commands
+echo shell_exec("/usr/local/bin/check_commands \"".escapeshellarg($_POST['arg'])."\"");
 ?>
